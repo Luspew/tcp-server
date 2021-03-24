@@ -28,15 +28,13 @@ int main(int argc, char **argv)
     address.sin_family = AF_INET;
     address.sin_port = htons(port);
 
-    int bind_val = bind(sock, (struct sockaddr *)&address, sizeof(address));
-    if (bind_val == -1)
+    if (bind(sock,(struct sockaddr *)&address, sizeof(address)) == -1)
     {
         perror("Error on binding socket address");
         return 1;
     }
 
-    int listen_val = listen(sock, 1);
-    if (listen_val == -1)
+    if (listen(sock,SOMAXCONN) == -1)
     {
         perror("Error on listening");
         return 1;
