@@ -1,4 +1,5 @@
 #include "../include/server.h"
+#include "../include/commands.h"
 #include <iostream>
 
 int main(int argc, char **argv)

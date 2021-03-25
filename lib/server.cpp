@@ -7,7 +7,8 @@
 
 
 int Server::Server::runServer(int port)
-{
+{   
+    Commands::CommandsCore().setupTriggers();
     // socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
 

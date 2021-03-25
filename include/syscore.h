@@ -6,6 +6,7 @@ namespace Syscore {
     {
         public:
             std::string quitServer();
+            std::string runCommand(std::string command);
     };
     
 }
