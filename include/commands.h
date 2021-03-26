@@ -5,7 +5,7 @@
 #include <map>
 
 #include "syscore.h"
-#define SYSTEM_CMD_SIZE 2
+#define SYSTEM_CMD_SIZE 5
 
 namespace Commands
 {
@@ -39,6 +39,7 @@ namespace Commands
         CommandsCore();
         void setupTriggers();
         std::string helpTrigger();
+        std::string frpermTrigger(std::string command);
         std::string commandControll(std::string command);
     };
 }

@@ -60,7 +60,7 @@ int Server::Server::runServer(int port)
         else if (recv_buffer == 0)
         {
             std::cout << "Client " << client_ip << " disconnected." << std::endl;
-            break;
+            continue;
         }
 
         if (buffer[recv_buffer - 1] == '\n')
@@ -74,6 +74,7 @@ int Server::Server::runServer(int port)
         std::string client_msg = static_cast<std::string>(buffer);
 
         // client response
+        // Command exec
         std::string response = Commands::CommandsCore().commandControll(client_msg);
 
         int send_buffer = send(client_sock, response.c_str(), response.length(), 0);
