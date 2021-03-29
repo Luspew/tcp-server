@@ -6,8 +6,9 @@
 
 
 int main() {
-    Commands::CommandsCore().setupTriggers();
-    std::cout << Commands::CommandsCore().commandControll("frperm fillipe");
+    //std::cout << Commands::CommandsCore().tCmd.at("help") << std::endl;
+    std::cout << Commands::CommandsCore().commandControll("help");
+
 
     return 0;
 }

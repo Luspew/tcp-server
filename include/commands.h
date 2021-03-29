@@ -15,16 +15,16 @@ namespace Commands
         std::string ALIAS;
         std::string UNIXCMD;
         bool IS_OS_CMD;
-        Command(int id, std::string alias, std::string unixcmd, bool is_os_cmd)
+        bool HAS_ARGS;
+        Command(int id, std::string alias, std::string unixcmd, bool is_os_cmd, bool has_args)
         {
             ID = id;
             ALIAS = alias;
             UNIXCMD = unixcmd;
             IS_OS_CMD = is_os_cmd;
+            HAS_ARGS = has_args;
         }
-    };  
-
-  
+    };
 
     class CommandsCore
     {
@@ -34,11 +34,11 @@ namespace Commands
         Command SYSTEM_COMMANDS[SYSTEM_CMD_SIZE];
 
     public:
-        typedef std::string (CommandsCore::*action)();
-        action triggerCommands[SYSTEM_CMD_SIZE];
+        typedef std::string (CommandsCore::*action)(std::string);
+        std::map<std::string,action> triggerCommands;
         CommandsCore();
         void setupTriggers();
-        std::string helpTrigger();
+        std::string helpTrigger(std::string command);
         std::string frpermTrigger(std::string command);
         std::string commandControll(std::string command);
     };

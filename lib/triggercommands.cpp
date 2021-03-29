@@ -4,7 +4,8 @@
 
 #include <string>
 
-std::string Commands::CommandsCore::helpTrigger()
+
+std::string Commands::CommandsCore::helpTrigger(std::string command)
 {
     return "System commands list";
 }

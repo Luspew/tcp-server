@@ -1,26 +1,23 @@
 #include "../include/commands.h"
 #include "../include/syscore.h"
+#include "../include/utils.h"
 
+#include <map>
 #include <string>
 
 Commands::CommandsCore::CommandsCore() : SYSTEM_COMMANDS{
-                                             {0, "help", "", false},
-                                             {1, "listdir", "ls", true},
-                                             {2, "currdir", "pwd", true},
-                                             {3, "clear", "clear", true},
-                                             {4, "frperm", "", false}} {}
-
-void Commands::CommandsCore::setupTriggers()
+                                             {0, "help", "", false, false},
+                                             {1, "listdir", "ls", true, false},
+                                             {2, "currdir", "pwd", true, false},
+                                             {3, "clear", "clear", true, false},
+                                             {4, "frperm", "", false, true}}
 {
-    triggerCommands[0] = &CommandsCore::helpTrigger;
+    //triggerCommands["help"] = &CommandsCore::helpTrigger;
+    triggerCommands.insert(std::pair<std::string, action>("help", &CommandsCore::helpTrigger));
 }
 
 std::string Commands::CommandsCore::commandControll(std::string command)
 {
-    if (command.find("frperm") != std::string::npos)
-    {
-       return frpermTrigger(command);
-    }
     if (command == "quit")
     {
         return Syscore::Syscore().quitServer();
@@ -34,7 +31,7 @@ std::string Commands::CommandsCore::commandControll(std::string command)
             {
                 return Syscore::Syscore().runCommand(SYSTEM_COMMANDS[i].UNIXCMD);
             }
-            return (this->*triggerCommands[SYSTEM_COMMANDS[i].ID])();
+            return (this->*triggerCommands.find(SYSTEM_COMMANDS[i].ALIAS)->second)(command);
         }
     }
     return "not found \n";
